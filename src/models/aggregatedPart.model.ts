@@ -1,6 +1,3 @@
-import { Packaging } from './packaging.model';
-import { SupplierName } from './packaging.model';
-
 export class AggregatedPart {
   name: string; // part name
   description: string; // part description
@@ -13,4 +10,19 @@ export class AggregatedPart {
   productImageUrl: string; // url to product image
   specifications: JSON; // part name collection of specifications if any, [] if none
   sourceParts: SupplierName[]; // collection of suppliers from where data was aggregated
+}
+export type SupplierName = 'Arrow' | 'TTI';
+export class Packaging {
+  type: string; // package type (bulk, reel, cut-tape, unspecified, etc)
+  minimumOrderQuantity: number; // minimum quantity required to purchase from this package
+  quantityAvailable: number; // available stock for this package
+  unitPrice: number; // unit price for this package
+  supplier: SupplierName; // name of supplier
+  priceBreaks: PriceBreak[]; // collection of pricing tiers for this package
+  manufacturerLeadTime?: string; // lead time in days
+}
+export class PriceBreak {
+  breakQuantity: number; // minimum quantity in order to reach pricing tier
+  unitPrice: number; // price per unit at this tier
+  totalPrice: number; // breakQuantity * unitPrice
 }
